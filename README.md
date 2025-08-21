@@ -12,8 +12,9 @@ InfoLens is a Python service that connects to your Gmail account via IMAP, fetch
 
 ## Setup
 1. Install dependencies
+    ```
     pip install -r requirements.txt
-
+    ```
 2. Configure Gmail App Password
     - Go to Google App Passwords. https://- myaccount.google.com/apppasswords
     - Generate a new App Password for “Mail”.
