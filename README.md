@@ -1,12 +1,16 @@
-InfoLens
+#InfoLens
+
 InfoLens is a Python service that connects to your Gmail account via IMAP, fetches unread emails, and processes their contents.
 
-Prerequisites
-Python 3.10+
-A Gmail account and setup App Password
+#Prerequisites:
+- Python 3.10 or higher
+- pip (Python package installer)
+- An active Gmail account
+- IMAP access enabled in Gmail settings
+- Enable "Less secure app access" or use App Passwords for Gmail
  https://myaccount.google.com/apppasswords
 
-Setup
+#Setup
 1. Install dependencies
     pip install -r requirements.txt
 
@@ -17,14 +21,15 @@ Setup
 
 3. Add credentials to .env
 Create a .env file in the project root:
+    ```
     GMAIL_USERNAME=your_email@gmail.com
     GMAIL_PASSWORD=your_app_password
-
+    ```
 4. Run the service
     python3 -m app.main
 
-Expected Output
-The service will:
-Connect to your Gmail inbox
-Fetch recent unread messages
-Print or process them
+#Expected Output
+
+       - Connect to your Gmail inbox
+       - Fetch recent unread messages
+       - Print or process them
