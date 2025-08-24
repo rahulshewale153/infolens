@@ -15,6 +15,9 @@ InfoLens is a Python service that connects to your Gmail account via IMAP, fetch
     ```
     pip install -r requirements.txt
     ```
+
+    OR
+    
 2. Configure Gmail App Password
     - Go to Google App Passwords.
      https://- myaccount.google.com/apppasswords
@@ -36,3 +39,11 @@ Create a .env file in the project root:
        - Connect to your Gmail inbox
        - Fetch recent unread messages
        - Print or process them
+
+
+
+
+## Update the Project related dependencies
+```
+pipreqs . --force --encoding=utf-8 --ignore .venv
+```

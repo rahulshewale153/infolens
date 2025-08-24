@@ -9,7 +9,7 @@ class Settings(BaseSettings):
     GMAIL_PASSWORD: str
     GMAIL_IMAP_URL: str
     GMAIL_IMAP_PORT: int
-    ATTACHMENT_DIR: str
+    DOWNLOAD_DIR: str
 
     model_config = SettingsConfigDict(
         env_file=".env",

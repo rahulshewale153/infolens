@@ -4,9 +4,12 @@ from email.header import decode_header
 from app.core.settings import settings
 from bs4 import BeautifulSoup
 import re
+import os
+
 class GmailClient:
     def __init__(self):
-        self.conn = None    
+        self.conn = None
+        self.download_dir = settings.DOWNLOAD_DIR    
     def connect(self):
         self.conn = imaplib.IMAP4_SSL(settings.GMAIL_IMAP_URL, settings.GMAIL_IMAP_PORT)
         self.conn.login(settings.GMAIL_USERNAME, settings.GMAIL_PASSWORD)
@@ -61,7 +64,7 @@ class GmailClient:
         if msg.is_multipart():
             for part in msg.walk():
                 ctype = part.get_content_type()
-                disp = str(part.get("Content-Disposition"))
+                disp = str(part.get("Content-Disposition") or "").lower()
                 
                 if "attachment" in disp:
                     continue  # skip attachments
@@ -111,6 +114,30 @@ class GmailClient:
 
         return full_text
 
+
+    def download_attachments(self, msg):
+        """
+        Downloads attachments from the email message to the specified folder.
+        Returns a list of file paths for the downloaded attachments.
+        """
+        if not msg.is_multipart():
+            return []
+
+        attachment_paths = []
+        for part in msg.walk():
+            ctype = part.get_content_type()
+            disp = str(part.get("Content-Disposition") or "").lower()
+
+            if "attachment" in disp:
+                filename = part.get_filename()
+                if filename:
+                    decoded_name = self.get_decoded_header(filename)
+                    if decoded_name.lower().endswith(".pdf"):
+                        file_path = os.path.join(self.download_dir, decoded_name)
+                        with open(file_path, "wb") as f:
+                            f.write(part.get_payload(decode=True))
+                        attachment_paths.append(file_path)
+        return attachment_paths
     
 
     def close(self):

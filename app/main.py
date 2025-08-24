@@ -12,13 +12,16 @@ def main():
 
     email = gmailClient.fetch_unread()
     print(f"📩 Found {len(email)} unread email")
-
+    attachments = gmailClient.download_attachments(email)
+    print("📎 Attachments saved:", attachments)
+    
     if email:
             print("From:", gmailClient.get_decoded_header(email["From"]))
             print("Subject:", gmailClient.get_decoded_header(email["Subject"]))
             print("Body:\n", gmailClient.get_body(email))
     else:
             print("No unseen mails in Primary.")
+
 
 if __name__ == "__main__":
     main()
